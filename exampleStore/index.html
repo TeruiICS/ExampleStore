@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+        <title>Example Store</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        <link rel="stylesheet" href="includes/styles.css" type="text/css"  />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    </head>
+    <body>
+      <h1 class="text-center display-1">Example Store (ICS128)</h1>  
+      
+      <!-- Checkout info --> 
+      <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title" id="exampleModalLabel">Checkout</h2>
+              <button id="checkout-close-btn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <ul class="nav nav-pills nav-justified" id="checkout-nav" role="tablist">
+                <li class="nav-item" id="payment-tab">
+                  <a class="nav-link active" type="button" id="payment-tab-btn"  data-bs-toggle="tab" href="#payment"  role="tab" aria-controls="payment" aria-selected="true">Payment Method</a>
+                </li>
+                <li class="nav-item" id="billing-tab">
+                  <a class="nav-link" type="button" id="billing-tab-btn"  data-bs-toggle="tab" href="#billing"  role="tab" aria-controls="billing" aria-selected="false">Billing Details</a>
+                </li>
+                <li class="nav-item" id="shipping-tab">
+                  <a class="nav-link" type="button" id="shipping-tab-btn"  data-bs-toggle="tab" href="#shipping"  role="tab" aria-controls="shipping" aria-selected="false">Shipping Details</a>
+                </li>
+                <li class="nav-item" id="confirmation-tab">
+                  <a class="nav-link" type="button"  id="confirmation-tab-btn" href="#confirmation" data-bs-toggle="tab"  role="tab" aria-controls="confirmation" aria-selected="false">Order Confirmation</a>
+                </li>
+              </ul>
+              
+              <div class="tab-content">
+                <div class="tab-pane active" id="payment" role="tabpanel" aria-labelledby="home-tab">
+                  <h2 class="title text-center title">Payment Method</h2>
+                  <form>
+                    <div>
+                      <label for="credit-card-number">Card Number</label>
+                    </div>
+                    <div>
+                     <input data-toggle="tooltip" data-placement="bottom" title="valid credit card number, no spaces" id="cardNumber" class="form-control" name="credit-card-number">
+                    </div>
+                    <div>
+                      <label for="card-info">Expiration date and CVV:</label>
+                    </div>
+                    <div name="card-info" class="row">
+                      <div class="col">
+                        <input data-toggle="tooltip" data-placement="bottom" title="two digit month number" id="month" type="text" class="form-control" placeholder="M/M">
+                      </div>
+                      <div class="col">
+                        <input data-toggle="tooltip" data-placement="bottom" title="four digit year" id="year" type="text" class="form-control" placeholder="YYYY">
+                      </div>
+                      <div class="col">
+                        <input data-toggle="tooltip" data-placement="bottom" title="three digit number" id="cvv" type="text" class="form-control" placeholder="CVVs">
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                      <button type="button" class="btn btn-primary footer-btns" id="payment-next-btn">Next</button>
+                    </div>
+                  </form>
+                </div>
+                <div class="tab-pane" id="billing" role="tabpanel" aria-labelledby="profile-tab">
+                  <h2 class="title text-center title">Billing Information</h2>
+                  <form id="billing-form">
+                    <div class="row">
+                        <div class="col">
+                          <label for="first-name-billing">First Name</label>
+                          <input data-toggle="tooltip" data-placement="bottom" title="Name with 3 letters or more" class="form-control" id="first-name-billing" placeholder="First Name">
+                        </div>
+                        <div class="col">
+                          <label for="last-name-billing">Last Name</label>
+                          <input data-toggle="tooltip" data-placement="bottom" title="Name with 3 letters or more" class="form-control" id="last-name-billing" placeholder="Last Name">
+                        </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <label for="billing-address">Address</label>
+                        <input data-toggle="tooltip" data-placement="bottom" title="Address must contain more than 5 letters" class="form-control" id="billing-address" placeholder="Billing Address">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <label for="billing-address2">Address 2</label>
+                        <input data-toggle="tooltip" data-placement="bottom" title="Address must contain more than 5 letters" class="form-control" id="billing-address2" placeholder="Billing Address">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <label for="billing-city">City</label>
+                        <input data-toggle="tooltip" data-placement="bottom" title="City name with more than 2 letters" class="form-control" id="billing-city" placeholder="City">
+                      </div>
+                      <div class="col">
+                        <label for="billing-province">Province/State</label>
+                        <input data-toggle="tooltip" data-placement="bottom" title="Two letter province/state" class="form-control" id="billing-province" placeholder="Province/State">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <label for="billing-country">Country</label>
+                        <input data-toggle="tooltip" data-placement="bottom" title="CA or US" class="form-control" id="billing-country" placeholder="Country">
+                      </div>
+                      <div class="col">
+                        <label for="billing-postal-code">Postal Code/ZIP</label>
+                        <input data-toggle="tooltip" data-placement="bottom" title="Postal Code/ZIP" class="form-control" id="billing-postal-code" placeholder="Postal Code">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <label for="billing-phone">Phone</label>
+                        <input data-toggle="tooltip" data-placement="bottom" title="North American phone" class="form-control" id="billing-phone" placeholder="(250)123 1234">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <label for="billing-Email">Email</label>
+                        <input data-toggle="tooltip" data-placement="bottom" title="Email" class="form-control" id="billing-email" placeholder="name@example.com">
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-between footer-btns">
+                      <button id="billing-prev-btn" class="btn btn-primary">Previous</button>
+                      <button type="button" class="btn btn-primary" id="billing-next-btn">Next</button>
+                    </div>
+                  </form>
+                  </div>
+                  <div class="tab-pane" id="shipping" role="tabpanel" aria-labelledby="messages-tab">
+                    <h2 class="title text-center title">Shipping Information</h2>
+                    <input  class="form-check-input" type="checkbox" id="shipping-copy-billing">
+                    <label class="form-check-label" for="shipping-copy-billing">Use billing address for shipping</label>
+                    <form id="shipping-form">
+                      <div class="row">
+                          <div class="col">
+                            <label for="first-name-shipping">First Name</label>
+                            <input data-toggle="tooltip" data-placement="bottom" title="Name with 3 letters or more" class="form-control" id="first-name-shipping" placeholder="First Name">
+                          </div>
+                          <div class="col">
+                            <label for="last-name-shipping">Last Name</label>
+                            <input data-toggle="tooltip" data-placement="bottom" title="Name with 3 letters or more" class="form-control" id="last-name-shipping" placeholder="Last Name">
+                          </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <label for="shipping-address">Address</label>
+                          <input data-toggle="tooltip" data-placement="bottom" title="Address must contain more than 5 letters" class="form-control" id="shipping-address" placeholder="Shipping Address">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <label for="shipping-address2">Address 2</label>
+                          <input data-toggle="tooltip" data-placement="bottom" title="Address must contain more than 5 letters" class="form-control" id="shipping-address2" placeholder="Shipping Address">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <label for="shipping-city">City</label>
+                          <input data-toggle="tooltip" data-placement="bottom" title="City name with more than 2 letters" class="form-control" id="shipping-city" placeholder="City">
+                        </div>
+                        <div class="col">
+                          <label for="shipping-province">Province/State</label>
+                          <input data-toggle="tooltip" data-placement="bottom" title="Two letter province/state" class="form-control" id="shipping-province" placeholder="Province/State">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <label for="shipping-country">Country</label>
+                          <input data-toggle="tooltip" data-placement="bottom" title="CA or US" class="form-control" id="shipping-country" placeholder="Country">
+                        </div>
+                        <div class="col">
+                          <label for="shipping-postal-code">Postal Code/ZIP</label>
+                          <input data-toggle="tooltip" data-placement="bottom" title="Postal Code/ZIP" class="form-control" id="shipping-postal-code" placeholder="Postal Code">
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-between footer-btns">
+                        <button id="shipping-prev-btn" class="btn btn-primary">Previous</button>
+                        <button type="button" class="btn btn-primary" id="shipping-next-btn">Next</button>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="tab-pane text-center" id="confirmation" role="tabpanel" aria-labelledby="settings-tab">
+                    <h2 class="text-center title">Confirmation</h2>
+                    <div id="currency-dropdown" class="dropdown mt-3">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                        Select currency
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a id="cad" currency="cad" class="dropdown-item">Canadian Dollar</a></li>
+                        <li><a id="usd" currency="usd" class="dropdown-item">US Dollar</a></li>
+                        <li><a id="brl" currency="brl" class="dropdown-item">Brl</a></li>
+                      </ul>
+                    </div>
+                    <table class="table" id="confirmation-table"></table>
+                    <div id="confirmation-footer"></div>
+                  </div>
+                </form>
+              </div>
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sticky-top d-flex align-items-center justify-content-center">
+        <button class="btn btn-lg btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#cart" aria-controls="offcanvasExample">
+          <p style="margin-bottom: 2px;">View Cart</p>
+          <span style="color:white;" class="material-symbols-outlined">
+            shopping_cart
+            </span>
+        </button>
+      </div>
+      <div class="offcanvas offcanvas-start text-center" tabindex="-1" id="cart" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header text-center">
+          <h2 class="offcanvas-title display-2" id="offcanvasExampleLabel">Cart</h2>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <div id="currency-dropdown" class="dropdown mt-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+              Select currency
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li><a id="cad" currency="cad" class="dropdown-item">Canadian Dollar</a></li>
+              <li><a id="usd" currency="usd" class="dropdown-item">US Dollar</a></li>
+              <li><a id="brl" currency="brl" class="dropdown-item">Brl</a></li>
+            </ul>
+          </div>
+          <table class="table" id="shopping_cart_table">
+          </table>
+          <div id="cart_footer" class="dropdown mt-3 footer-btns">
+            
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="response-modal" tabindex="-1" role="dialog" aria-labelledby="response-modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title" id="response-modal-title">Invalid Information</h2>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="response-modal-body" class="modal-body">
+            
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" data-masonry='{"percentPosition": true }' id="catalog">
+        
+      </div>
+      <button id="API-error" type="button" class="btn btn-primary invisible" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Launch modal
+      </button>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Sorry, we are currently experiencing techinical difficulties...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+      <script src="https://deepblue.camosun.bc.ca/~c0180354/ics128/final/cookie-manager.js"></script>
+      <script src="includes/project.js"></script>  
+      <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    </body>
+</html>

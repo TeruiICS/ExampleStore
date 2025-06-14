@@ -1,0 +1,46 @@
+h1 {
+    text-align: left;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+.product {
+    padding:20px ;
+}
+.material-symbols-outlined{
+    color: red;
+}
+.remove_item{
+    cursor: pointer;
+}
+
+
+#currency-dropdown {
+    margin-bottom: 20px;
+}
+
+form {
+    padding: 20px;
+}
+
+.title {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.tab-pane{
+    padding: 1rem;
+}
+
+.footer-btns {
+    margin-top: 1rem;
+}
+
+.offcanvas-header {
+    display: flex;
+    align-items: center;
+}
+@media only screen and (max-width: 768px) {
+    #video_F {
+        width: 90vw;
+    }
+}
